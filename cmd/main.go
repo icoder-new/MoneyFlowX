@@ -26,8 +26,9 @@ func main() {
 	srv := new(moneyflowx.Server)
 
 	go func() {
-		if err := srv.Run("", nil); err != nil {
+		if err := srv.Run(utils.AppSettings.AppParams.PortRun, nil); err != nil {
 			logger.Error.Fatalf("[MAIN] error occurred while running server: %v", err.Error())
+			return
 		}
 	}()
 
@@ -37,5 +38,6 @@ func main() {
 
 	if err := srv.Shutdown(context.Background()); err != nil {
 		logger.Error.Fatalf("[MAIN] error occurred while shutdown server: %v", err.Error())
+		return
 	}
 }
