@@ -60,5 +60,6 @@ func NewRepository(db *gorm.DB) *Repository {
 		Wallet:        NewWalletRepository(db),
 		SourceOfFund:  NewSourceOfFundRepository(db),
 		PasswordReset: NewPasswordResetRepository(db),
+		Transaction:   NewTransactionRepository(db),
 	}
 }
