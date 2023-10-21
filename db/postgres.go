@@ -20,13 +20,14 @@ func initDB() *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		logger.Error.Fatal("Failed to connect to postgreSQL database")
+		logger.Error.Fatal("[db] failed to connect to postgreSQL database")
 	}
 
 	return db
 }
 
 func StartDbConnection() {
+	logger.Info.Println("[db] connected to database")
 	database = initDB()
 }
 
@@ -37,8 +38,9 @@ func GetDBConn() *gorm.DB {
 func DisconnectDB(db *gorm.DB) {
 	_db, err := db.DB()
 	if err != nil {
-		logger.Error.Fatal("Failed to kill connection from database. Error is: ", err.Error())
+		logger.Error.Fatal("[db] failed to kill connection from database. Error is: ", err.Error())
 	}
 
 	_db.Close()
+	logger.Info.Println("[db] successfully disconnected from database")
 }
