@@ -57,5 +57,6 @@ func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
 		User:          NewUserRepository(db),
+		Wallet:        NewWalletRepository(db),
 	}
 }
