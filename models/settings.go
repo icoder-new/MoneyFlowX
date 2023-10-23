@@ -20,6 +20,7 @@ type Params struct {
 	LogCompress   bool
 	SecretKey     string
 	TokenTTL      int
+	JWTIssuer     string
 }
 
 type PostgresSettings struct {

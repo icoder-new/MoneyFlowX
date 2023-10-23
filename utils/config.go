@@ -47,6 +47,7 @@ func setup() {
 	AppSettings.AppParams.PortRun = viper.GetString("port")
 	AppSettings.AppParams.SecretKey = os.Getenv("SECRET_API")
 	AppSettings.AppParams.TokenTTL = cast.ToInt(os.Getenv("TOKEN_LIFESPAN"))
+	AppSettings.AppParams.JWTIssuer = os.Getenv("JWT_ISSUER")
 }
 
 func setupPostgres() {
