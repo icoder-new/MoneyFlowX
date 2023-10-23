@@ -3,6 +3,7 @@ package service
 import (
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
+	"fr33d0mz/moneyflowx/pkg/repository"
 
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -41,4 +42,10 @@ type Service struct {
 	User
 	Wallet
 	Transaction
+}
+
+func NewService(repo *repository.Repository) *Service {
+	return &Service{
+		Authorization: NewAuthService(*repo),
+	}
 }
