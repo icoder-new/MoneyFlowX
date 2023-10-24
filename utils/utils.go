@@ -24,14 +24,6 @@ func GenerateString(length int) string {
 }
 
 func GenerateWalletNumber(userID string) string {
-	randomNumber := rand.Intn(9000) + 1000
-	randomNumberStr := fmt.Sprintf("%d", randomNumber)
-	userIDPrefix := userID[:2]
-	walletNumber := fmt.Sprintf("%s%s", userIDPrefix, randomNumberStr)
-	return walletNumber
-}
-
-func GenerateWalletNumberUUID(userID string) string {
 	randomNumber := rand.Intn(9999)
 	hash := md5.Sum([]byte(userID))
 	hashStr := fmt.Sprintf("%x", hash)
