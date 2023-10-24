@@ -59,10 +59,5 @@ func (u *UserService) CreateUser(input *dto.RegisterRequestBody) (*models.User, 
 
 	user.Password = string(passwordHash)
 
-	_user, err := u.repo.CreateUser(user)
-	if err != nil {
-		return user, err
-	}
-
-	return _user, nil
+	return u.repo.CreateUser(user)
 }
