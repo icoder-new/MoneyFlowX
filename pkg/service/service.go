@@ -50,5 +50,6 @@ func NewService(repo *repository.Repository) *Service {
 		JWT:           NewJWTService(*repo),
 		User:          NewUserService(*repo),
 		Wallet:        NewWalletService(*repo),
+		Transaction:   NewTransactionService(*repo),
 	}
 }
