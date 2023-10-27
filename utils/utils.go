@@ -2,12 +2,13 @@ package utils
 
 import (
 	"crypto/md5"
-	"fmt"
+	"encoding/hex"
 	"math/rand"
+	"strings"
 	"time"
 )
 
-const charset = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -24,10 +25,13 @@ func GenerateString(length int) string {
 }
 
 func GenerateWalletNumber(userID string) string {
-	randomNumber := rand.Intn(9999)
-	hash := md5.Sum([]byte(userID))
-	hashStr := fmt.Sprintf("%x", hash)
-	walletNumber := hashStr[:8] + fmt.Sprintf("%04d", randomNumber)
+	userIDByte := []byte(userID)
+	hash := md5.Sum(userIDByte)
 
-	return walletNumber
+	return strings.ToUpper(hex.EncodeToString(hash[:]))[:6]
+}
+
+func IsWalletNumberValid(userID, walletNumber string) bool {
+	generatedWalletNumber := GenerateWalletNumber(userID)
+	return generatedWalletNumber == walletNumber
 }
