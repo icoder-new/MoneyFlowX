@@ -20,11 +20,11 @@ type Wallet struct {
 }
 
 type User struct {
-	ID        string         `json:"uuid" gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	ID        string         `json:"uuid,omitempty" gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
 	Firstname string         `json:"firstname" gorm:"not null"`
 	Lastname  string         `json:"lastname" gorm:"not null"`
-	Username  string         `json:"username" gorm:"not null;unique"`
-	Email     string         `json:"email" gorm:"not null;unique"`
+	Username  string         `json:"username,omitempty" gorm:"not null;unique"`
+	Email     string         `json:"email,omitempty" gorm:"not null;unique"`
 	Password  string         `json:"-" gorm:"not null"`
 	Type      string         `json:"type" gorm:"not null"`
 	IsActive  bool           `json:"is_active" gorm:"not null"`

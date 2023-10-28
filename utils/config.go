@@ -22,7 +22,7 @@ func PutAdditionalSettings() {
 	AppSettings.AppParams.LogMaxSize = 10
 	AppSettings.AppParams.LogMaxAge = 100
 	AppSettings.AppParams.LogMaxBackups = 100
-	AppSettings.AppParams.AppVersion = "1.0"
+	AppSettings.AppParams.AppVersion = "v1"
 }
 
 func ReadSettings() {

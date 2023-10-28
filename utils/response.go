@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"os"
 	"strconv"
 )
 
@@ -74,7 +73,7 @@ func ErrorResponse(message string, code int, err interface{}) EResponse {
 }
 
 func ResponseWithPagination(message string, code int, data interface{}, metadata Metadata) SResponse {
-	appUrl := os.Getenv("APP_URL")
+	appUrl := generateAppURL()
 	url := appUrl + "/" + metadata.Resource
 	totalPage := (metadata.TotalAll / metadata.Limit) + 1
 	var next string

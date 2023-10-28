@@ -5,6 +5,9 @@ import (
 	"fr33d0mz/moneyflowx"
 	"fr33d0mz/moneyflowx/db"
 	"fr33d0mz/moneyflowx/logger"
+	"fr33d0mz/moneyflowx/pkg/handler"
+	"fr33d0mz/moneyflowx/pkg/repository"
+	"fr33d0mz/moneyflowx/pkg/service"
 	"fr33d0mz/moneyflowx/utils"
 	"os"
 	"os/signal"
@@ -23,10 +26,14 @@ func main() {
 	db.AutoMigrate(_db)
 	defer db.DisconnectDB(_db)
 
+	repository := repository.NewRepository(_db)
+	service := service.NewService(repository)
+	handler := handler.NewHandler(service)
+
 	srv := new(moneyflowx.Server)
 
 	go func() {
-		if err := srv.Run(utils.AppSettings.AppParams.PortRun, nil); err != nil {
+		if err := srv.Run(utils.AppSettings.AppParams.PortRun, handler.InitRoutes()); err != nil {
 			logger.Error.Fatalf("[MAIN] error occurred while running server: %v", err.Error())
 			return
 		}

@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"math/rand"
 	"strings"
 	"time"
@@ -34,4 +35,9 @@ func GenerateWalletNumber(userID string) string {
 func IsWalletNumberValid(userID, walletNumber string) bool {
 	generatedWalletNumber := GenerateWalletNumber(userID)
 	return generatedWalletNumber == walletNumber
+}
+
+func generateAppURL() string {
+	settings := AppSettings.AppParams
+	return fmt.Sprintf("http://%s:%s/api/%s", settings.ServerURL, settings.PortRun, settings.AppVersion)
 }
