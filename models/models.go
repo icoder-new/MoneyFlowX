@@ -63,7 +63,3 @@ type PasswordReset struct {
 	ExpiredAt time.Time `json:"expired_at"`
 	CreatedAt time.Time `json:"created_at"`
 }
-
-// source: https://github.com/BrondoL/e-wallet-api
-// https://sendgrid.com/ -> for verification email and reset password
-// https://github.com/d-vignesh/go-jwt-auth | example of it
