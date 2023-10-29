@@ -1,11 +1,11 @@
 package service
 
 import (
-	"errors"
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
 	"fr33d0mz/moneyflowx/utils"
+	"fr33d0mz/moneyflowx/utils/CustomError"
 	"github.com/spf13/cast"
 )
 
@@ -24,13 +24,17 @@ func (t *TransactionService) GetTransactions(userID string, query *dto.Transacti
 }
 
 func (t *TransactionService) TopUp(input *dto.TopUpRequestBody) (*models.Transaction, error) {
+	if input.Amount > 100000.0 {
+		return &models.Transaction{}, &CustomError.AmountIdentifiedUserLimitError{}
+	}
+
 	sourceOfFund, err := t.repo.SourceOfFund.FindById(input.SourceOfFundID)
 	if err != nil {
 		return &models.Transaction{}, err
 	}
 
 	if sourceOfFund.ID == "" {
-		return &models.Transaction{}, errors.New("`source of fund` not found")
+		return &models.Transaction{}, &CustomError.SourceOfFundNotFoundError{}
 	}
 
 	wallet, err := t.repo.Wallet.FindByUserId(input.User.ID)
@@ -39,7 +43,11 @@ func (t *TransactionService) TopUp(input *dto.TopUpRequestBody) (*models.Transac
 	}
 
 	if wallet.ID == "" {
-		return &models.Transaction{}, errors.New("wallet not found error")
+		return &models.Transaction{}, &CustomError.WalletNotFoundError{}
+	}
+
+	if wallet.UserType == "unidentified" && wallet.Balance+input.Amount > 10000.0 {
+		return &models.Transaction{}, &CustomError.AmountUnidentifiedUserLimitError{}
 	}
 
 	transaction := &models.Transaction{}
@@ -76,15 +84,19 @@ func (t *TransactionService) Transfer(input *dto.TransferRequestBody) (*models.T
 	}
 
 	if myWallet.ID == "" {
-		return &models.Transaction{}, errors.New("wallet not found")
+		return &models.Transaction{}, &CustomError.WalletNotFoundError{}
 	}
 
 	if myWallet.Balance < input.Amount {
-		return &models.Transaction{}, errors.New("insufficient balance")
+		return &models.Transaction{}, &CustomError.InsufficientBalanceError{}
 	}
 
 	if utils.IsWalletNumberValid(myWallet.UserID, myWallet.Number) {
-		return &models.Transaction{}, errors.New("transfer to the same wallet")
+		return &models.Transaction{}, &CustomError.TransferToSameWalletError{}
+	}
+
+	if myWallet.UserType == "unidentified" && myWallet.Balance-input.Amount <= -1 {
+		return &models.Transaction{}, &CustomError.InsufficientBalanceError{}
 	}
 
 	destinationWallet, err := t.repo.Wallet.FindByNumber(myWallet.Number)
@@ -93,7 +105,7 @@ func (t *TransactionService) Transfer(input *dto.TransferRequestBody) (*models.T
 	}
 
 	if destinationWallet.ID == "" {
-		return &models.Transaction{}, errors.New("wallet not found")
+		return &models.Transaction{}, &CustomError.WalletNotFoundError{}
 	}
 
 	transaction := &models.Transaction{}

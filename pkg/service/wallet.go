@@ -1,11 +1,11 @@
 package service
 
 import (
-	"errors"
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
 	"fr33d0mz/moneyflowx/utils"
+	"fr33d0mz/moneyflowx/utils/CustomError"
 )
 
 type WalletService struct {
@@ -34,7 +34,7 @@ func (w *WalletService) CreateWallet(input *dto.WalletRequestBody) (*models.Wall
 	}
 
 	if user.ID == "" {
-		return &models.Wallet{}, errors.New("user not found")
+		return &models.Wallet{}, &CustomError.UserNotFoundError{}
 	}
 
 	wallet, err := w.repo.Wallet.FindByUserId(user.ID)
@@ -43,7 +43,7 @@ func (w *WalletService) CreateWallet(input *dto.WalletRequestBody) (*models.Wall
 	}
 
 	if wallet.ID != "" {
-		return &models.Wallet{}, errors.New("wallet already exist")
+		return &models.Wallet{}, &CustomError.WalletAlreadyExistsError{}
 	}
 
 	wallet.UserID = user.ID

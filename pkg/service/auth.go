@@ -1,11 +1,11 @@
 package service
 
 import (
-	"errors"
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
 	"fr33d0mz/moneyflowx/utils"
+	"fr33d0mz/moneyflowx/utils/CustomError"
 	"net/mail"
 	"time"
 
@@ -25,7 +25,7 @@ func NewAuthService(repo repository.Repository) *AuthService {
 func (a *AuthService) Attempt(input *dto.LoginRequestBody) (*models.User, error) {
 	_, err := mail.ParseAddress(input.Email)
 	if err != nil {
-		return &models.User{}, errors.New("user not found")
+		return &models.User{}, &CustomError.UserNotFoundError{}
 	}
 
 	user, err := a.repo.FindByEmail(input.Email)
@@ -34,12 +34,12 @@ func (a *AuthService) Attempt(input *dto.LoginRequestBody) (*models.User, error)
 	}
 
 	if user.ID == "" {
-		return user, errors.New("user not found")
+		return user, &CustomError.UserNotFoundError{}
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password))
 	if err != nil {
-		return user, errors.New("incorrect email or password")
+		return user, &CustomError.IncorrectCredentialsError{}
 	}
 
 	return user, nil
@@ -48,7 +48,7 @@ func (a *AuthService) Attempt(input *dto.LoginRequestBody) (*models.User, error)
 func (a *AuthService) ForgotPass(input *dto.ForgotPasswordRequestBody) (*models.PasswordReset, error) {
 	_, err := mail.ParseAddress(input.Email)
 	if err != nil {
-		return &models.PasswordReset{}, errors.New("")
+		return &models.PasswordReset{}, &CustomError.NotValidEmailError{}
 	}
 
 	user, err := a.repo.FindByEmail(input.Email)
@@ -57,7 +57,7 @@ func (a *AuthService) ForgotPass(input *dto.ForgotPasswordRequestBody) (*models.
 	}
 
 	if user.ID == "" {
-		return &models.PasswordReset{}, errors.New("")
+		return &models.PasswordReset{}, &CustomError.UserNotFoundError{}
 	}
 
 	passwordReset, err := a.repo.PasswordReset.FindByUserId(user.ID)
@@ -86,11 +86,11 @@ func (a *AuthService) ResetPass(input *dto.ResetPasswordRequestBody) (*models.Pa
 	}
 
 	if passwordReset.User.Email == "" {
-		return passwordReset, errors.New("invalid reset token")
+		return passwordReset, &CustomError.ResetTokenNotFoundError{}
 	}
 
 	if input.Password != input.ConfirmPassword {
-		return passwordReset, errors.New("password is not the same as confirm password")
+		return passwordReset, &CustomError.PasswordNotSameError{}
 	}
 
 	user := &passwordReset.User

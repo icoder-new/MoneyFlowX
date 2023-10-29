@@ -1,10 +1,10 @@
 package service
 
 import (
-	"errors"
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
+	"fr33d0mz/moneyflowx/utils/CustomError"
 	"net/mail"
 
 	"golang.org/x/crypto/bcrypt"
@@ -32,7 +32,7 @@ func (u *UserService) GetUser(input *dto.UserRequestParams) (*models.User, error
 func (u *UserService) CreateUser(input *dto.RegisterRequestBody) (*models.User, error) {
 	_, err := mail.ParseAddress(input.Email)
 	if err != nil {
-		return &models.User{}, errors.New("not valid email")
+		return &models.User{}, &CustomError.IncorrectCredentialsError{}
 	}
 
 	user, err := u.repo.User.FindByEmail(input.Email)
@@ -40,9 +40,17 @@ func (u *UserService) CreateUser(input *dto.RegisterRequestBody) (*models.User, 
 		return user, err
 	}
 
+	if user.ID == "" {
+		return user, &CustomError.UserAlreadyExistsError{}
+	}
+
 	user, err = u.repo.User.FindByUsernameName(input.Username)
 	if err != nil {
 		return user, err
+	}
+
+	if user.ID == "" {
+		return user, &CustomError.UserAlreadyExistsError{}
 	}
 
 	user.Firstname = input.Firstname
