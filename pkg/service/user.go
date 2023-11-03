@@ -5,6 +5,7 @@ import (
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
 	"fr33d0mz/moneyflowx/utils/CustomError"
+	"github.com/google/uuid"
 	"net/mail"
 
 	"golang.org/x/crypto/bcrypt"
@@ -40,7 +41,7 @@ func (u *UserService) CreateUser(input *dto.RegisterRequestBody) (*models.User, 
 		return user, err
 	}
 
-	if user.ID == "" {
+	if user.ID != "" {
 		return user, &CustomError.UserAlreadyExistsError{}
 	}
 
@@ -49,10 +50,11 @@ func (u *UserService) CreateUser(input *dto.RegisterRequestBody) (*models.User, 
 		return user, err
 	}
 
-	if user.ID == "" {
+	if user.ID != "" {
 		return user, &CustomError.UserAlreadyExistsError{}
 	}
 
+	user.ID = uuid.New().String()
 	user.Firstname = input.Firstname
 	user.Lastname = input.Lastname
 	user.Email = input.Email

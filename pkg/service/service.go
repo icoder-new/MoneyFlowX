@@ -4,7 +4,6 @@ import (
 	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/pkg/repository"
-
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -17,6 +16,8 @@ type Authorization interface {
 type JWT interface {
 	GenerateToken(userID string) (string, error)
 	ValidateToken(token string) (*jwt.Token, error)
+	SendVerificationToken(user *models.User) error
+	VerifyUser(token string) (*models.User, *models.Wallet, error)
 }
 
 type User interface {
