@@ -34,24 +34,17 @@ type User struct {
 }
 
 type Transaction struct {
-	ID             string         `json:"uuid" gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
-	SourceOfFundID *string        `json:"source_of_fund_id" gorm:"references:SourceOfFunds(id);not null"`
-	SourceOfFund   *SourceOfFund  `json:"-" gorm:"foreignKey:SourceOfFundID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	UserID         string         `json:"user_id" gorm:"references:users(id);not null"`
-	User           User           `json:"-" gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	WalletID       string         `json:"wallet_id" gorm:"references:wallets(id);not null"`
-	Wallet         Wallet         `json:"-" gorm:"foreignKey:WalletID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Amount         float64        `json:"amount,omitempty" gorm:"not null"`
-	Comment        string         `json:"comment" gorm:"not null"`
-	Type           string         `json:"type,omitempty" gorm:"not null"`
-	CreatedAt      time.Time      `json:"created_at"`
-	UpdatedAt      time.Time      `json:"updated_at"`
-	DeletedAt      gorm.DeletedAt `json:"-" gorm:"index"`
-}
-
-type SourceOfFund struct {
-	ID   string `json:"uuid" gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
-	Name string `json:"name" gorm:"not null"`
+	ID        string         `json:"uuid" gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	UserID    string         `json:"user_id" gorm:"references:users(id);not null"`
+	User      User           `json:"-" gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	WalletID  string         `json:"wallet_id" gorm:"references:wallets(id);not null"`
+	Wallet    Wallet         `json:"-" gorm:"foreignKey:WalletID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Amount    float64        `json:"amount,omitempty" gorm:"not null"`
+	Comment   string         `json:"comment" gorm:"not null"`
+	Type      string         `json:"type,omitempty" gorm:"not null"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 }
 
 type PasswordReset struct {
