@@ -3,7 +3,6 @@ package db
 import (
 	"fmt"
 	"fr33d0mz/moneyflowx/logger"
-	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/utils"
 
 	"gorm.io/driver/postgres"
@@ -46,9 +45,6 @@ func DisconnectDB(db *gorm.DB) {
 	logger.Info.Println("[db] successfully disconnected from database")
 }
 
-func AutoMigrate(db *gorm.DB) {
-	err := db.AutoMigrate(&models.User{}, &models.PasswordReset{}, &models.Wallet{}, &models.SourceOfFund{}, &models.Transaction{})
-	if err != nil {
-		logger.Error.Fatal("[MAIN] error occurred while AutoMigrating db models")
-	}
-}
+//func AutoMigrate(db *gorm.DB) {
+//
+//}
