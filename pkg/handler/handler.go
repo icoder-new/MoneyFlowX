@@ -36,6 +36,12 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			auth.POST("/reset-password", h.ResetPassword)
 		}
 
+		verify := api.Group("/verify")
+		{
+			verify.GET("/send", AuthMiddleware(h.service.JWT, h.service.User), h.SendToken)
+			verify.GET("/:verifyToken", h.VerifyUser)
+		}
+
 		user := api.Group("/user")
 		{
 			user.GET("/profiles", AuthMiddleware(h.service.JWT, h.service.User), h.Profile)
@@ -45,7 +51,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			transaction.Use(AuthMiddleware(h.service.JWT, h.service.User))
 			transaction.GET("/", h.GetTransactions)
-			transaction.POST("/top-up", h.TopUp)
+			//TODO: add top-up transaction
 			transaction.POST("/transfer", h.Transfer)
 		}
 	}
