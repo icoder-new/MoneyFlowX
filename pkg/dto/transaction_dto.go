@@ -7,9 +7,8 @@ import (
 )
 
 type TopUpRequestBody struct {
-	Amount         float64 `json:"amount" binding:"required,min=1,max=5000"`
-	SourceOfFundID string  `json:"source_of_fund_id" binding:"required"`
-	User           *models.User
+	Amount float64 `json:"amount" binding:"required,min=1,max=5000"`
+	User   *models.User
 }
 
 type TransferRequestBody struct {
@@ -21,7 +20,6 @@ type TransferRequestBody struct {
 
 type TopUpResponse struct {
 	ID            string    `json:"uuid"`
-	SourceOfFund  string    `json:"source_of_fund"`
 	Amount        float64   `json:"amount"`
 	WalletBalance float64   `json:"balance"`
 	Comment       string    `json:"comment"`
@@ -55,20 +53,18 @@ type TransferResponse struct {
 }
 
 type TransactionResponse struct {
-	ID           string      `json:"uuid"`
-	SourceOfFund string      `json:"source_of_fund"`
-	Destination  Destination `json:"destination"`
-	Amount       float64     `json:"amount"`
-	Comment      string      `json:"comment"`
-	Type         string      `json:"Type"`
-	CreatedAt    time.Time   `json:"created_at" time_format:"2006-01-02"`
-	UpdatedAt    time.Time   `json:"updated_at" time_format:"2006-01-02"`
+	ID          string      `json:"uuid"`
+	Destination Destination `json:"destination"`
+	Amount      float64     `json:"amount"`
+	Comment     string      `json:"comment"`
+	Type        string      `json:"Type"`
+	CreatedAt   time.Time   `json:"created_at" time_format:"2006-01-02"`
+	UpdatedAt   time.Time   `json:"updated_at" time_format:"2006-01-02"`
 }
 
 func FormatTopUp(transaction *models.Transaction) TopUpResponse {
 	return TopUpResponse{
 		ID:            transaction.ID,
-		SourceOfFund:  transaction.SourceOfFund.Name,
 		Amount:        transaction.Amount,
 		WalletBalance: transaction.Wallet.Balance,
 		Comment:       transaction.Comment,
@@ -92,24 +88,19 @@ func FormatTransfer(transaction *models.Transaction) TransferResponse {
 }
 
 func FormatTransaction(transaction *models.Transaction) TransactionResponse {
-	var sourceOfFund string
-	if transaction.SourceOfFund != nil {
-		sourceOfFund = transaction.SourceOfFund.Name
-	}
 	return TransactionResponse{
-		ID:           transaction.ID,
-		SourceOfFund: sourceOfFund,
-		Destination:  Destination{Name: transaction.Wallet.User.Username, Number: transaction.Wallet.Number},
-		Amount:       transaction.Amount,
-		Comment:      transaction.Comment,
-		Type:         transaction.Type,
-		CreatedAt:    transaction.CreatedAt,
-		UpdatedAt:    transaction.UpdatedAt,
+		ID:          transaction.ID,
+		Destination: Destination{Name: transaction.Wallet.User.Username, Number: transaction.Wallet.Number},
+		Amount:      transaction.Amount,
+		Comment:     transaction.Comment,
+		Type:        transaction.Type,
+		CreatedAt:   transaction.CreatedAt,
+		UpdatedAt:   transaction.UpdatedAt,
 	}
 }
 
 func FormatTransactions(transactions []*models.Transaction) []TransactionResponse {
-	formattedTransactions := []TransactionResponse{}
+	var formattedTransactions []TransactionResponse
 	for _, transaction := range transactions {
 		formattedBook := FormatTransaction(transaction)
 		formattedTransactions = append(formattedTransactions, formattedBook)
