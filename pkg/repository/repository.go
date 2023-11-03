@@ -27,10 +27,6 @@ type Wallet interface {
 	Update(wallet *models.Wallet) (*models.Wallet, error)
 }
 
-type SourceOfFund interface {
-	FindById(id string) (*models.SourceOfFund, error)
-}
-
 type PasswordReset interface {
 	FindByUserId(id string) (*models.PasswordReset, error)
 	FindByToken(token string) (*models.PasswordReset, error)
@@ -48,7 +44,6 @@ type Repository struct {
 	Authorization
 	User
 	Wallet
-	SourceOfFund
 	PasswordReset
 	Transaction
 }
@@ -58,7 +53,6 @@ func NewRepository(db *gorm.DB) *Repository {
 		Authorization: NewAuthPostgres(db),
 		User:          NewUserRepository(db),
 		Wallet:        NewWalletRepository(db),
-		SourceOfFund:  NewSourceOfFundRepository(db),
 		PasswordReset: NewPasswordResetRepository(db),
 		Transaction:   NewTransactionRepository(db),
 	}
