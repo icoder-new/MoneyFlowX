@@ -39,6 +39,7 @@ func ReadSettings() {
 
 	setup()
 	setupPostgres()
+	setupSMTP()
 }
 
 func setup() {
@@ -57,4 +58,11 @@ func setupPostgres() {
 	AppSettings.PostgresParams.Database = viper.GetString("db.dbname")
 	AppSettings.PostgresParams.SSLMode = viper.GetString("db.sslmode")
 	AppSettings.PostgresParams.Password = os.Getenv("DB_PASSWORD")
+}
+
+func setupSMTP() {
+	AppSettings.SMTPParams.Host = viper.GetString("smtp.host")
+	AppSettings.SMTPParams.Username = viper.GetString("smtp.username")
+	AppSettings.SMTPParams.Port = viper.GetString("smtp.port")
+	AppSettings.SMTPParams.Password = os.Getenv("SMTP_PASSWORD")
 }

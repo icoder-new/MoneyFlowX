@@ -20,8 +20,6 @@ func GetStatusCode(err error) int {
 		statusCode = http.StatusUnprocessableEntity
 	} else if _, ok := err.(*CustomError.ResetTokenNotFoundError); ok {
 		statusCode = http.StatusBadRequest
-	} else if _, ok := err.(*CustomError.SourceOfFundNotFoundError); ok {
-		statusCode = http.StatusBadRequest
 	} else if _, ok := err.(*CustomError.InsufficientBalanceError); ok {
 		statusCode = http.StatusBadRequest
 	} else if _, ok := err.(*CustomError.WalletNotFoundError); ok {

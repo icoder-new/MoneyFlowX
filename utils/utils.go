@@ -37,7 +37,7 @@ func IsWalletNumberValid(userID, walletNumber string) bool {
 	return generatedWalletNumber == walletNumber
 }
 
-func generateAppURL() string {
+func GenerateAppURL() string {
 	settings := AppSettings.AppParams
 	return fmt.Sprintf("http://%s:%s/api/%s", settings.ServerURL, settings.PortRun, settings.AppVersion)
 }

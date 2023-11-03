@@ -20,12 +20,6 @@ type EResponse struct {
 	Error interface{} `json:"error"`
 }
 
-type Link struct {
-	URL    string
-	Label  string
-	Active bool
-}
-
 type PaginationResponse struct {
 	CurrentPage  int         `json:"current_page"`
 	Data         interface{} `json:"data"`
@@ -73,7 +67,7 @@ func ErrorResponse(message string, code int, err interface{}) EResponse {
 }
 
 func ResponseWithPagination(message string, code int, data interface{}, metadata Metadata) SResponse {
-	appUrl := generateAppURL()
+	appUrl := GenerateAppURL()
 	url := appUrl + "/" + metadata.Resource
 	totalPage := (metadata.TotalAll / metadata.Limit) + 1
 	var next string
