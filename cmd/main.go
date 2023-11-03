@@ -5,6 +5,7 @@ import (
 	"fr33d0mz/moneyflowx"
 	"fr33d0mz/moneyflowx/db"
 	"fr33d0mz/moneyflowx/logger"
+	"fr33d0mz/moneyflowx/models"
 	"fr33d0mz/moneyflowx/pkg/handler"
 	"fr33d0mz/moneyflowx/pkg/repository"
 	"fr33d0mz/moneyflowx/pkg/service"
@@ -23,7 +24,7 @@ func main() {
 
 	db.StartDbConnection()
 	_db := db.GetDBConn()
-	db.AutoMigrate(_db)
+	_db.AutoMigrate(&models.User{}, &models.PasswordReset{}, &models.Wallet{}, &models.Transaction{})
 	defer db.DisconnectDB(_db)
 
 	repository := repository.NewRepository(_db)
