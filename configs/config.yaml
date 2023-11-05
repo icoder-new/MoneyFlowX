@@ -6,3 +6,8 @@ db:
   dbname: "moneyflowx"
   sslmode: "disable"
   port: "5432"
+
+smtp:
+  host: "smtp.gmail.com"
+  port: "587"
+  username: "priler05@gmail.com"
