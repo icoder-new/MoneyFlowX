@@ -17,7 +17,7 @@ type SResponse struct {
 
 type EResponse struct {
 	Meta  Meta        `json:"meta"`
-	Error interface{} `json:"error"`
+	Error interface{} `json:"error,omitempty"`
 }
 
 type PaginationResponse struct {
