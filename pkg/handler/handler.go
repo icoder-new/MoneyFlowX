@@ -44,15 +44,22 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 		user := api.Group("/user")
 		{
-			user.GET("/profiles", AuthMiddleware(h.service.JWT, h.service.User), h.Profile)
+			user.GET("/profile", AuthMiddleware(h.service.JWT, h.service.User), h.Profile)
 		}
 
 		transaction := api.Group("/transactions")
 		{
 			transaction.Use(AuthMiddleware(h.service.JWT, h.service.User))
 			transaction.GET("/", h.GetTransactions)
-			//TODO: add top-up transaction
 			transaction.POST("/transfer", h.Transfer)
+			transaction.POST("/top-up", h.TopUp)
+		}
+
+		wallet := api.Group("/wallet")
+		{
+			wallet.GET("/check", h.CheckWallet)
+			wallet.Use(AuthMiddleware(h.service.JWT, h.service.User))
+			wallet.GET("/balance", h.GetBalance)
 		}
 	}
 
