@@ -41,7 +41,7 @@ type LoginResponseBody struct {
 	Email        string    `json:"email"`
 	WalletNumber string    `json:"wallet_number"`
 	Type         string    `json:"type"`
-	Token        string    `json:"token"`
+	Token        string    `json:"token,omitempty"`
 	CreatedAt    time.Time `json:"created_at" time_format:"2006-01-02"`
 }
 
