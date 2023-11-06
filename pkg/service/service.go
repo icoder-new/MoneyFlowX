@@ -28,6 +28,7 @@ type User interface {
 type Wallet interface {
 	GetWalletByUserId(input *dto.WalletRequestBody) (*models.Wallet, error)
 	CreateWallet(input *dto.WalletRequestBody) (*models.Wallet, error)
+	GetWalletByNumber(number string) (*models.Wallet, error)
 }
 
 type Transaction interface {

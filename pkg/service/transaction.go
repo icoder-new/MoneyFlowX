@@ -23,7 +23,6 @@ func (t *TransactionService) GetTransactions(userID string, query *dto.Transacti
 	return t.repo.Transaction.FindAll(userID, query)
 }
 
-// TODO: change it
 func (t *TransactionService) TopUp(input *dto.TopUpRequestBody) (*models.Transaction, error) {
 	wallet, err := t.repo.Wallet.FindByUserId(input.User.ID)
 	if err != nil {

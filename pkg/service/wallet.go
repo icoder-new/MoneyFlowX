@@ -54,3 +54,7 @@ func (w *WalletService) CreateWallet(input *dto.WalletRequestBody) (*models.Wall
 
 	return w.repo.Wallet.CreateWallet(wallet)
 }
+
+func (w *WalletService) GetWalletByNumber(number string) (*models.Wallet, error) {
+	return w.repo.Wallet.FindByNumber(number)
+}
