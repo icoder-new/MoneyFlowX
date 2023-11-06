@@ -3,6 +3,7 @@ package handler
 import (
 	"fr33d0mz/moneyflowx/pkg/dto"
 	"fr33d0mz/moneyflowx/utils"
+	"fr33d0mz/moneyflowx/utils/CustomError"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -35,14 +36,11 @@ func (h *Handler) Register(c *gin.Context) {
 		return
 	}
 
-	token, err := h.service.JWT.GenerateToken(newUser.ID)
-	if err != nil {
-		response := utils.ErrorResponse("register failed", http.StatusInternalServerError, err.Error())
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	item := dto.LoginRequestBody{}
+	item.Email = input.Email
+	item.Password = input.Password
 
-	formattedLogin := dto.FormatLogin(newUser, newWallet, token)
+	formattedLogin := dto.FormatLogin(newUser, newWallet, utils.CalculateHash(item))
 	response := utils.SuccessResponse("register success", http.StatusCreated, formattedLogin)
 	c.JSON(http.StatusCreated, response)
 }
@@ -57,11 +55,25 @@ func (h *Handler) Login(c *gin.Context) {
 		return
 	}
 
+	UserId := c.GetHeader("X-UserId")
+	hashSum := c.GetHeader("X-Digest")
+	if hashSum != utils.CalculateHash(input) {
+		response := utils.ErrorResponse("hash no valid", http.StatusUnauthorized, nil)
+		c.JSON(http.StatusUnauthorized, response)
+		return
+	}
+
 	loggedInUser, err := h.service.Authorization.Attempt(input)
 	if err != nil {
 		statusCode := utils.GetStatusCode(err)
 		response := utils.ErrorResponse("login failed", statusCode, err.Error())
 		c.JSON(statusCode, response)
+		return
+	}
+
+	if loggedInUser.ID != UserId {
+		response := utils.ErrorResponse("user not found", http.StatusUnauthorized, &CustomError.UserNotFoundError{})
+		c.JSON(http.StatusUnauthorized, response)
 		return
 	}
 
