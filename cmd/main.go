@@ -24,7 +24,11 @@ func main() {
 
 	db.StartDbConnection()
 	_db := db.GetDBConn()
-	_db.AutoMigrate(&models.User{}, &models.PasswordReset{}, &models.Wallet{}, &models.Transaction{})
+	err := _db.AutoMigrate(&models.User{}, &models.PasswordReset{}, &models.Wallet{}, &models.Transaction{})
+	if err != nil {
+		logger.Error.Fatalf("[MAIN] error while auto migrating: %v", err.Error())
+		return
+	}
 	defer db.DisconnectDB(_db)
 
 	repository := repository.NewRepository(_db)
