@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "69d26425-e481-4298-ac4c-318952ea0a2e",
+		"name": "MoneyFlowX",
+		"description": "Ладно...",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27772361"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Eshmat\",\r\n    \"lastname\": \"Toshmatov\",\r\n    \"username\": \"eshmatlo\",\r\n    \"email\": \"ehsmatov.t.i7@gmail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/auth/sign-up",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Digest",
+								"value": "aca2d1659fac45f87f2108284b8f135bf80da8d7",
+								"type": "text"
+							},
+							{
+								"key": "X-UserId",
+								"value": "97121421-e8cf-445d-b4ea-47613a314a14",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ehsmatov.t.i7@gmail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/auth/sign-in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"WOUJYFxiEY\",\r\n    \"password\": \"1234567890\",\r\n    \"confirm_password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/auth/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ehsonjonazimi05@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "verify",
+			"item": [
+				{
+					"name": "verify code sending",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk4OTA5ODAzLCJpYXQiOjE2OTg5MDI2MDMsInVzZXJfaWQiOiI3YmQ3NTU0Mi0zNGZmLTQ1NTEtYjA5Ny01NDgzOWNjZGVlNjkifQ.8ru9Tw2QAdOWO16G5qnhjw5r70I40PJXfxiSPOArwk8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/verify/send",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"verify",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk4OTk1MDkzLCJpYXQiOjE2OTg5ODc4OTMsInVzZXJfaWQiOiI3YmQ3NTU0Mi0zNGZmLTQ1NTEtYjA5Ny01NDgzOWNjZGVlNjkifQ.0Ay3imi33WPvcjqsbsnK5lIRm3kF-2VO45AnqA8l9Wo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/user/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "transfer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk4OTk1MDkzLCJpYXQiOjE2OTg5ODc4OTMsInVzZXJfaWQiOiI3YmQ3NTU0Mi0zNGZmLTQ1NTEtYjA5Ny01NDgzOWNjZGVlNjkifQ.0Ay3imi33WPvcjqsbsnK5lIRm3kF-2VO45AnqA8l9Wo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 1000.0,\r\n    \"wallet_number\": \"9FAC15\",\r\n    \"comment\": \"Just for fun\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/transactions/transfer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions with pagination",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk4OTk1MDkzLCJpYXQiOjE2OTg5ODc4OTMsInVzZXJfaWQiOiI3YmQ3NTU0Mi0zNGZmLTQ1NTEtYjA5Ny01NDgzOWNjZGVlNjkifQ.0Ay3imi33WPvcjqsbsnK5lIRm3kF-2VO45AnqA8l9Wo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/transactions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top-Up",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk5MzU2NjM3LCJpYXQiOjE2OTkzNDk0MzcsInVzZXJfaWQiOiI5NzEyMTQyMS1lOGNmLTQ0NWQtYjRlYS00NzYxM2EzMTRhMTQifQ.Pk1m8uo_dnbQo-MulgI2tUw6EwIJv_CxY1WeuFIEUSs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 154.45\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/v1/transactions/top-up",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"top-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wallet",
+			"item": [
+				{
+					"name": "check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/wallet/check?id=95308F",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"wallet",
+								"check"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "95308F"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJpQ29kZXItbmV3IiwiZXhwIjoxNjk5MzU3NzQ3LCJpYXQiOjE2OTkzNTA1NDcsInVzZXJfaWQiOiI5NzEyMTQyMS1lOGNmLTQ0NWQtYjRlYS00NzYxM2EzMTRhMTQifQ.6xR1OPOBqZ-21vKGvzBRtLtOfDB-dYPaPlHv-3vfyG4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/wallet/balance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"wallet",
+								"balance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
