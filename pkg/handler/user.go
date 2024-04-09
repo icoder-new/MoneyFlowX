@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fr33d0mz/moneyflowx/logger"
-	"fr33d0mz/moneyflowx/models"
-	"fr33d0mz/moneyflowx/pkg/dto"
-	"fr33d0mz/moneyflowx/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/icoder-new/MoneyFlowX/logger"
+	"github.com/icoder-new/MoneyFlowX/models"
+	"github.com/icoder-new/MoneyFlowX/pkg/dto"
+	"github.com/icoder-new/MoneyFlowX/utils"
 	"net/http"
 )
 

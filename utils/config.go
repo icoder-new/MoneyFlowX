@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"fr33d0mz/moneyflowx/models"
+	"github.com/icoder-new/MoneyFlowX/models"
 	"log"
 	"os"
 

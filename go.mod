@@ -1,4 +1,4 @@
-module fr33d0mz/moneyflowx
+module github.com/icoder-new/MoneyFlowX
 
 go 1.21.2
 

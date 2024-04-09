@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"fr33d0mz/moneyflowx/pkg/service"
 	"github.com/gin-gonic/gin"
+	"github.com/icoder-new/MoneyFlowX/pkg/service"
 )
 
 type Handler struct {

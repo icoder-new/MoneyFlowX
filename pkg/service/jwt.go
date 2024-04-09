@@ -3,9 +3,9 @@ package service
 import (
 	"errors"
 	"fmt"
-	"fr33d0mz/moneyflowx/models"
-	"fr33d0mz/moneyflowx/pkg/repository"
-	"fr33d0mz/moneyflowx/utils"
+	"github.com/icoder-new/MoneyFlowX/models"
+	"github.com/icoder-new/MoneyFlowX/pkg/repository"
+	"github.com/icoder-new/MoneyFlowX/utils"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"

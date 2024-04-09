@@ -1,11 +1,11 @@
 package service
 
 import (
-	"fr33d0mz/moneyflowx/models"
-	"fr33d0mz/moneyflowx/pkg/dto"
-	"fr33d0mz/moneyflowx/pkg/repository"
-	"fr33d0mz/moneyflowx/utils"
-	"fr33d0mz/moneyflowx/utils/CustomError"
+	"github.com/icoder-new/MoneyFlowX/models"
+	"github.com/icoder-new/MoneyFlowX/pkg/dto"
+	"github.com/icoder-new/MoneyFlowX/pkg/repository"
+	"github.com/icoder-new/MoneyFlowX/utils"
+	"github.com/icoder-new/MoneyFlowX/utils/CustomError"
 )
 
 type WalletService struct {

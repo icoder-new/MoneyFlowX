@@ -1,6 +1,6 @@
 package dto
 
-import "fr33d0mz/moneyflowx/models"
+import "github.com/icoder-new/MoneyFlowX/models"
 
 type WalletRequestBody struct {
 	UserID string `json:"name" binding:"required"`

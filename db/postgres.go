@@ -2,8 +2,8 @@ package db
 
 import (
 	"fmt"
-	"fr33d0mz/moneyflowx/logger"
-	"fr33d0mz/moneyflowx/utils"
+	"github.com/icoder-new/MoneyFlowX/logger"
+	"github.com/icoder-new/MoneyFlowX/utils"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

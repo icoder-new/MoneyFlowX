@@ -2,7 +2,7 @@ package logger
 
 import (
 	"fmt"
-	"fr33d0mz/moneyflowx/utils"
+	"github.com/icoder-new/MoneyFlowX/utils"
 	"io"
 	"log"
 	"os"

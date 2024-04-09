@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fr33d0mz/moneyflowx/pkg/dto"
-	"fr33d0mz/moneyflowx/pkg/service"
-	"fr33d0mz/moneyflowx/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/icoder-new/MoneyFlowX/pkg/dto"
+	"github.com/icoder-new/MoneyFlowX/pkg/service"
+	"github.com/icoder-new/MoneyFlowX/utils"
 	"net/http"
 	"strings"
 )

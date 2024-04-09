@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"fr33d0mz/moneyflowx/utils/CustomError"
+	"github.com/icoder-new/MoneyFlowX/utils/CustomError"
 	"net/http"
 )
 

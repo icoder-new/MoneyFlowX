@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"fr33d0mz/moneyflowx/models"
+	"github.com/icoder-new/MoneyFlowX/models"
 
 	"gorm.io/gorm"
 )

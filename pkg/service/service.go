@@ -1,10 +1,10 @@
 package service
 
 import (
-	"fr33d0mz/moneyflowx/models"
-	"fr33d0mz/moneyflowx/pkg/dto"
-	"fr33d0mz/moneyflowx/pkg/repository"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/icoder-new/MoneyFlowX/models"
+	"github.com/icoder-new/MoneyFlowX/pkg/dto"
+	"github.com/icoder-new/MoneyFlowX/pkg/repository"
 )
 
 type Authorization interface {
